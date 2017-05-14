@@ -1,0 +1,24 @@
+  - name: install mysql-server
+    action: apt name=mysql-server
+    notify:
+      - mysql_secure_installation
+
+  - name: write conf.d/mysqld.cnf
+    action: ...conf file... dest=/etc/mysql/conf.d/mysqld.cnf
+    notify:
+      - restart mysql
+
+- name: Create a the mattermost database
+  mysql_db:
+    name: {{ db_name }}
+    state: present
+
+-name: create mattermost db user, grant all privileges
+ mysql_user:
+    name: {{ db_user }}
+    password : {{ db_password }}
+    host : '127.0.0.1'
+    priv: '{{ db_name }}.*:ALL,GRANT'
+    state: present
+    
+ 
