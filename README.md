@@ -4,7 +4,7 @@ This playbook installs Mattermost version 3.5.1 (Team Edition) by default.
 
 It downloads the binary from [mattermost.org](https://www.mattermost.org/download/). If you need to install the Enterprise
 edition, consult the Mattermost documentation. This playbook installs
- * `postgresql` - Database Server
+ * mysql - database server, with transparent encryption (tablespace encryption) enabled for mattermost tables. PostgreSQL does not support TDE without an enterprise license. 
  * `nginx` - Web Server (acts as a reverse proxy)
  * SSL certificates are automatically generated from the [letsencrypt](https://letsencrypt.org) project. A cron job is
  created that automatically renews the SSL certificates once a month.
@@ -13,18 +13,7 @@ edition, consult the Mattermost documentation. This playbook installs
 
 
 This playbook currently works with
-- [x] Ubuntu 14.04.4 Trusty Tahr (DigitalOcean)
-- [x] Ubuntu 16.04.1 Xenial Xerus (DigitalOcean)
-- [x] CentOS 6.8  (DigitalOcean)
-- [x] CentOS 7.2 (DigitalOcean)
-- [x] Red Hat Enterprise Linux 6.8 (Santiago) (Installed from RedHat DVD on a Vultr VPS)
-- [x] Red Hat Enterprise Linux 7.2 (Maipo) (Installed from RedHat DVD on a Vultr VPS)
-- [ ] Debian 7.11 Wheezy
-- [x] Debian 8.6 Jessie (thanks [fgbreel](https://github.com/fgbreel)!)
-- [ ] Fedora 23
-- [ ] Fedora 24
-
-Debian and Fedora are coming soon.
+ UNDER DEVELOPMENT, starting with ubuntu 16.04
 
 ---
 I have no reason to think that versions of these operating systems installed locally or by other providers will not work,
@@ -80,6 +69,13 @@ data directory. A large volume of attached block storage would not be a bad idea
 be configured for email notifications and invites.  You can do most of this from within the browser without manually editing
 configuration files.
 
+Encryption requires that:
+(1) Tables are stored using innodb with file_per_table set.
+(2) Use of MySQL Keyring. This activates the keyring_file plugin.
+
+You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost.
+
+To protect attached files, you will need to configure either full disk or folder encryption on the data folder.
 ---
 
 ### Contributing  
