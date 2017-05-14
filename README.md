@@ -69,11 +69,11 @@ data directory. A large volume of attached block storage would not be a bad idea
 be configured for email notifications and invites.  You can do most of this from within the browser without manually editing
 configuration files.
 
-Encryption requires that:
+Encryption requires that
 (1) Tables are stored using innodb with file_per_table set.
 (2) Use of MySQL Keyring. This activates the keyring_file plugin.
 
-You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost.
+You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost. This playbook does not, by default, encrypt any tables. You will have to manually issue ALTER TABLE statements post installation.
 
 To protect attached files, you will need to configure either full disk or folder encryption on the data folder.
 ---
