@@ -22,7 +22,7 @@
 
   roles:
     - common
-    - postgres
+    - mysql
     - mattermost
     - letsencrypt
     - nginx
