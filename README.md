@@ -72,9 +72,10 @@ configuration files.
 Encryption requires that
 (1) Tables are stored using innodb with file_per_table set.
 (2) Use of MySQL Keyring. This activates the keyring_file plugin.
-
-You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost.
+You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost db.
 To protect attached files, you will need to configure either full disk or folder encryption on the data folder.
+
+Encrypted tables can be backed up using the flush then copy binary file method. Flush operation will create a transfer key file (.cfp) for each encrypted table that will be used to restore the table. 
 ---
 
 ### Current To-Do's
