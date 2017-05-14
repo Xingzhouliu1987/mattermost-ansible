@@ -73,13 +73,11 @@ Encryption requires that
 (1) Tables are stored using innodb with file_per_table set.
 (2) Use of MySQL Keyring. This activates the keyring_file plugin.
 
-You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost. This playbook does not, by default, encrypt any tables. You will have to manually issue ALTER TABLE statements post installation.
-
+You can disable/enable encryption for tables by issuing ALTER TABLE ... ENCRYPTION= statement against mattermost.
 To protect attached files, you will need to configure either full disk or folder encryption on the data folder.
 ---
 
-### Contributing  
-Please submit pull requests! They make my day. 
-
-### Moving Forward
-I am currently working on porting this standalone playbook into a more defined Ansible role with a complete implementation of all the options in the Mattermost `config` file. You can check on the status of this project [here.](https://github.com/tjtoml/ansible-role-mattermost)
+### Current To-Do's
+- install tasks for mysql\
+- create task to issue alter table encrypt against mattermost db once tables are created.
+- test against ubuntu 
