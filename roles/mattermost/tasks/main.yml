@@ -31,7 +31,7 @@
   lineinfile:
     dest: /opt/mattermost/config/config.json
     regexp: '"DataSource":'
-    line: '        "DataSource": "postgres://{{ db_user }}:{{ db_password }}@127.0.0.1:5432/{{ db_name }}?sslmode=disable&connect_timeout=10",'
+    line : ' "DataSource": "{{ db_user }}:{{ db_password }}@tcp(127.0.0.1:3306)/{{ db_name }}?charset=utf8mb4,utf\u0026readTimeout=30s",'
     backrefs: yes
 
 - name: Create mattermost user
@@ -80,3 +80,12 @@
     name: mattermost
     enabled: yes
     state: started
+    
+- name: Encrypts Tables
+  command: >
+    mysql --user={{ db_user }} --password={{ db_password }} {{ db_name }}
+    --host=127.0.0.1 --batch --skip-column-names
+    --execute="...alter queries... "
+  register: encrypt_mattermost_tables
+  always_run: True
+  changed_when: False
